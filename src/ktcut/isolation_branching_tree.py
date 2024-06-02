@@ -143,8 +143,8 @@ class IsolationBranchingTree:
         print(self.report)
         final_node_source_sets = {}
         for terminal in self._terminals:
-            if "combined" in self._active_node.graph.node[terminal]:
-                final_node_source_sets[terminal] = self._active_node.graph.node[
+            if "combined" in self._active_node.graph.nodes[terminal]:
+                final_node_source_sets[terminal] = self._active_node.graph.nodes[
                     terminal
                 ]["combined"] | {terminal}
             else:

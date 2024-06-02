@@ -28,10 +28,10 @@ def contract_vertices(graph, u, v_set):
                 graph.add_edge(u, node_w, capacity=data_dict["capacity"])
         graph.remove_node(node_v)
 
-    if "combined" in graph.node[u]:
-        graph.node[u]["combined"] |= v_set
+    if "combined" in graph.nodes[u]:
+        graph.nodes[u]["combined"] |= v_set
     else:
-        graph.node[u]["combined"] = v_set
+        graph.nodes[u]["combined"] = v_set
 
     return graph
 
@@ -62,9 +62,9 @@ def contract_vertex(graph, u, v):
 
     graph.remove_node(v)
 
-    if "combined" in graph.node[u]:
-        graph.node[u]["combined"].add(v)
+    if "combined" in graph.nodes[u]:
+        graph.nodes[u]["combined"].add(v)
     else:
-        graph.node[u]["combined"] = {v}
+        graph.nodes[u]["combined"] = {v}
 
     return graph
