@@ -44,3 +44,38 @@ def isolation_branching(graph, terminals, persistence=None, reporting=True, time
     source_sets, cut_value = branch_and_bound_tree.solve(reporting=reporting, time_limit=time_limit)
 
     return source_sets, cut_value, branch_and_bound_tree.report
+
+
+
+def isolation_branching_extended_results (graph, terminals, persistence=None, reporting=True, time_limit=600, return_removed_edges = False, return_partitions = False):
+
+    source_sets, cut_value, report = isolation_branching (graph, terminals = terminals, persistence=persistence, reporting=reporting, time_limit=time_limit)
+
+    # removed edges
+
+    mapping_node_to_source = {}
+    for s in source_sets:
+        # print ('\t source set: ', s)
+        # print ('\t', source_sets[s])
+        for t in source_sets[s]:
+            mapping_node_to_source[t] = s
+
+    removed_edges = set()
+    if return_removed_edges == True:
+        for e in graph.edges():
+            (a, b) = e
+            if mapping_node_to_source[a] != mapping_node_to_source[b]:
+                removed_edges.add(e)
+
+    partition_edges = {}
+    if return_partitions == True:
+        for s in source_sets:
+            partition_edges [s] = set()
+
+        for e in graph.edges():
+            (a, b) = e
+            if mapping_node_to_source[a] == mapping_node_to_source[b]:
+                s_c = mapping_node_to_source[a]
+                partition_edges[s_c].add(e)
+
+    return source_sets, cut_value, report, removed_edges, partition_edges

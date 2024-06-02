@@ -65,20 +65,43 @@ For a step-by-step tutorial, we add new tests in the folder /new_tests
 
 from ktcut.isolation_branching import isolation_branching
 
+Load the graph with "capacity" as a parameter for each edge. The default value is 1.0.
+
 The function _isolation_branching_ has the following arguments/parameters:
 - Arguments:
-      graph: the networkx graph in which to find the multi-terminal cut
-      terminals: the terminals of the networkx graph
-      persistence: if persistence is assumed [strong, weak, None]
-      reporting: if the branching solver should print results as it goes
-      time_limit: the time after which to terminate,
-          even if the optimal solution has not yet been reached.
-- Returns:
-      source_sets: the partition of the nodes of the graph which defines the minimum cut
-      cut_value: the weight of the optimal multi-terminal cut
-      report: the final values in the Isolation Branching tree
+  * graph: the networkx graph in which to find the multi-terminal cut
+  * terminals: the terminals of the networkx graph
+  * persistence: if persistence is assumed [strong, weak, None]
+  * reporting: if the branching solver should print results as it goes
+  * time_limit: the time after which to terminate, even if the optimal solution has not yet been reached.
 
-## Original Author
+- Returns:
+  * source_sets: the partition of the nodes of the graph which defines the minimum cut
+  * cut_value: the weight of the optimal multi-terminal cut
+  * report: the final values in the Isolation Branching tree
+
+
+  The report consists of the following items (using the Tutte graph as an example. See small_test_tutte_graph.py):
+
+- Source Set Sizes : {1: 15, 17: 14, 34: 14}
+- Active Node Depth : 1
+- Active Node Lower Bound : 5.0
+- Active Node Upper Bound : 5.0
+- Active Node Total Unassigned Vertices : 0
+- Best Unexplored Lower Bound : 5.0
+- Best Upper Bound : 5.0
+- Nodes Unexplored : 3
+- Nodes Total : 4
+- Time Elapsed : 0.0033850669860839844
+
+
+  There are two hyper-parameters which affect the performance of our branch-and-bound algorithm: the vertex-selection strategy and the node-selection strategy.
+
+    - Branching Vertex Selection At each tree node, how do we decide which unassigned graph vertex to branch on to create the children nodes?
+    - Branching Node Selection After expanding a node in the tree, how do we decide which node to expand next?
+
+
+## The Original Author
 
 * **Mark Velednitsky**
 
