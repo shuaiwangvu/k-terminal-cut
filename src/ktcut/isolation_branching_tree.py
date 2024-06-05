@@ -140,7 +140,7 @@ class IsolationBranchingTree:
 
         # done
         self._active_node = self._node_with_best_upper_bound()
-        print(self.report)
+        # print(self.report)
         final_node_source_sets = {}
         for terminal in self._terminals:
             if "combined" in self._active_node.graph.nodes[terminal]:
